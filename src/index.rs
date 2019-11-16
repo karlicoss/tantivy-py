@@ -68,6 +68,15 @@ impl IndexWriter {
         self.inner_index_writer.commit().map_err(to_pyerr)
     }
 
+    /// Deletes all documents from the index
+    ///
+    /// Requires `commit`ing
+    /// Enables users to rebuild the index,
+    /// by clearing and resubmitting necessary documents
+    fn delete_all_documents(&mut self) -> PyResult<u64> {
+        self.inner_index_writer.delete_all_documents().map_err(to_pyerr)
+    }
+
     /// Rollback to the last commit
     ///
     /// This cancels all of the update that happened before after the last
